@@ -19,3 +19,8 @@ runs/
 *.mp4
 *.avi
 *.mov
+
+# inference generated files
+inference/images/
+inference/output/
+inference/videos/
