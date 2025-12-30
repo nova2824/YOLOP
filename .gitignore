@@ -1,0 +1,21 @@
+# Python cache
+__pycache__/
+
+# Virtual environment
+venv/
+
+# Model weights
+weights/
+*.pt
+*.pth
+*.onnx
+
+# Generated outputs
+eval_out/
+output/
+runs/
+
+# Videos
+*.mp4
+*.avi
+*.mov
