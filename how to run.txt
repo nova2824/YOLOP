@@ -1,0 +1,53 @@
+cd C:\Users\naray_he7wm7m\YOLOP_2\YOLOP
+
+python tools/demo.py --source night_vision_3.mp4 --save-dir inference/nmk/
+
+ for evaluation output
+$eval_out = Join-Path $PWD "eval_out\run_eval_final"
+New-Item -ItemType Directory -Path $eval_out -Force | Out-Null
+
+python .\evaluate_lane_video.py `
+  --pred_video "C:\Users\naray_he7wm7m\YOLOP_2\YOLOP\tools\inference\run_20251201_002433\source.mp4" `
+  --out_dir $eval_out `
+  --color_method color `
+  --downsample 2
+
+
+ STEP 1 — Go to the YOLOP project folder
+cd C:\Users\naray_he7wm7m\YOLOP
+
+ STEP 2 — Set a name for evaluation output
+$eval_out = Join-Path $PWD "eval_out\run_eval_final"
+New-Item -ItemType Directory -Path $eval_out -Force | Out-Null
+
+ STEP 3 — Run the evaluator on your predicted video
+
+(Your YOLOP output video is located in tools\inference\run_20251201_002433\source.mp4)
+
+python .\evaluate_lane_video.py `
+  --pred_video "C:\Users\naray_he7wm7m\YOLOP\tools\inference\run_20251201_002433\source.mp4" `
+  --out_dir $eval_out `
+  --color_method color `
+  --downsample 2
+
+ STEP 4 — View generated metrics, plots, and CSVs
+
+List what was generated:
+
+Get-ChildItem -Path $eval_out -File | Select-Object Name,Length
+
+
+Open the summary:
+
+Get-Content $eval_out\summary_metrics.json
+
+
+Preview first rows of per-frame metrics:
+
+Get-Content $eval_out\per_frame_metrics.csv -TotalCount 12
+
+
+Open plots:
+
+ii $eval_out\detection_ratio.png
+ii $eval_out\temporal_iou.png

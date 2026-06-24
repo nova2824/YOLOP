@@ -1,26 +1,20 @@
-# Python cache
+.DS_Store
 __pycache__/
-
-# Virtual environment
+.idea/
+.tmp/
+.vscode/
+bdd/
 venv/
-
-# Model weights
 weights/
-*.pt
-*.pth
-*.onnx
-
-# Generated outputs
+runs/
 eval_out/
 output/
-runs/
-
-# Videos
+inference/
+*.pth
+*.pt
+*.tar
+*.tar.gz
+*.onnx
 *.mp4
 *.avi
 *.mov
-
-# inference generated files
-inference/images/
-inference/output/
-inference/videos/
