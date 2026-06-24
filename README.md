@@ -126,8 +126,6 @@ Processes the features using a dedicated segmentation branch to extract precise 
 
 ## 🛠️ Computer Vision Enhancements
 
-Standard deep-learning models struggle when deployed in conditions that differ from their training sets. Because YOLOP was trained primarily on the BDD100K dataset (composed of standard US road lighting), it requires assistance in unstructured and low-light environments. 
-
 Our pipeline implements pre-inference CV enhancements inside `tools/demo.py`:
 ```python
 # Night visibility & shadow preprocessing
@@ -135,6 +133,18 @@ img_det = cv2.convertScaleAbs(img_det, alpha=1.5, beta=30)
 ```
 * **Contrast Scaling ($\alpha = 1.5$)**: Enhances edge transitions, making faded lane lines stand out from the road surface.
 * **Brightness Adjustment ($\beta = 30$)**: Restores pixel intensities in poorly lit frames (e.g. night footage), ensuring that the features are prominent enough for Backbone activation.
+
+### 🔬 Lane Extraction Preprocessing Comparison (HSV vs. RGB-Difference)
+
+To extract lanes robustly under challenging Indian roads and night conditions, the post-processing and evaluation pipeline uses a hybrid method comparing HSV color-space thresholding against an RGB channel difference check:
+
+1. **HSV-Based Masking**: Captures red hue ranges but can be sensitive to dynamic lighting variations and headlight reflections.
+2. **RGB-Difference Masking**: Checks red dominance: $(R > 100) \land (R - G > 40) \land (R - B > 40)$. This is highly stable against night shadows and glare.
+
+Below is a comparison showcasing the input frame, HSV mask, and RGB-difference mask results during simulation debugging:
+
+![Pre-processing Lane Mask Comparison](debug_masks_compare/compare_000050.jpg)
+*Figure: Pre-processing lane detection comparison showing original frame (left), HSV mask (center), and RGB-difference mask (right).*
 
 ---
 
